@@ -1,0 +1,40 @@
+.image-preview {
+
+    &__list {
+        list-style: none;
+        display: flex;
+        padding: 10px;
+        border: 1px solid #198754;
+        border-radius: 0.25rem;
+        margin-bottom: 16px;
+
+        &-row {
+            flex-direction: row;
+        }
+    }
+
+    &__item {
+        display: flex;
+
+        &-column {
+            width: 100%;
+        }
+    }
+
+    &__image-wrapper {
+        flex-shrink: 0;
+        width: 120px;
+        height: 120px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-right: 10px;
+    }
+
+    &__info {
+        flex-grow: 1;
+    }
+
+    &__info-item {
+        margin: 0;
+    }
+}
