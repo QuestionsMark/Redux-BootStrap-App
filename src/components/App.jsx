@@ -13,6 +13,7 @@ import AnimeForm from './anime/AnimeForm';
 import UserPage from './user/UserPage';
 import { Alert, Button, Modal } from 'react-bootstrap';
 import { useResponsePopup } from '../contexts/ResponsePopupProvider';
+import AnimePage from './anime/AnimePage';
 
 function App() {
 
@@ -45,7 +46,7 @@ function App() {
                     <Route path="users/:userId/*" element={<UserPage />}/>
                     <Route path="anime" element={<AnimeList />}/>
                     <Route path="anime/add" element={<AnimeForm />}/>
-                    <Route path="anime/:animeId/*" element={<AnimeForm />}/>
+                    <Route path="anime/:animeId/*" element={<AnimePage />}/>
                 </Routes>
             </main>
             <Footer />

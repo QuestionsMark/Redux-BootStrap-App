@@ -6,25 +6,13 @@ import { Link } from 'react-router-dom';
 import { deleteUser } from '../../actions/userActions.ts';
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
 
-const loremTexts = [
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur sed aperiam rerum, praesentium vitae ut facere tenetur totam repellat aliquid architecto, nihil quos mollitia!',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum deleniti porro perspiciatis unde voluptates consequatur sed aperiam rerum, praesentium vitae ut facere tenetur totam, nihil quos mollitia!',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum deleniti porro perspiciatis unde voluptates consequatur sed aperiam rerum.',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum deleniti porro perspiciatis unde voluptates consequatur sed aperiam rerum, praesentium vitae ut facere tenetur totam repellat aliquid architecto, nihil quos mollitia! Illum deleniti porro perspiciatis unde voluptates.',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum deleniti porro perspiciatis unde voluptates consequatur sed aperiam rerum, praesentium.',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum deleniti porro perspiciatis unde voluptates consequatur sed aperiam rerum, praesentium vitae ut facere tenetur totam repellat aliquid architecto, nihil quos mollitia!',
-]
-
 const UserCard = ({user}) => {
 
     const dispatch = useDispatch();
 
     const { setOpen, setStatus, setResponse } = useResponsePopup();
 
-    const { id, avatar, color, email, username } = user;
-
-    const lorem = loremTexts[Math.floor(Math.random() * loremTexts.length)];
+    const { id, avatar, color, description, email, username } = user;
 
     const handleUserDelete = () => {
         dispatch(deleteUser(id));
@@ -41,7 +29,7 @@ const UserCard = ({user}) => {
                 <Card.Body>
                     <Card.Title className="mb-3">{username}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">Email: {email}</Card.Subtitle>
-                    <Card.Text style={{color: 'black'}}>{lorem}</Card.Text>
+                    <Card.Text className="text--limited" style={{color: 'black'}}>{description}</Card.Text>
                     <div className="button-container button-container--row button-container--end button-container--center">
                         <Link to={`/users/${id}`} className="btn btn-primary">Zobacz profil!</Link>
                         <Button variant="outline-danger" onClick={handleUserDelete}>Usuń</Button>

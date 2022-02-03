@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
-import Username from './createUser/Username';
-import Email from './createUser/Email';
-import Avatar from './createUser/Avatar';
+import Username from '../formElements/Username';
+import Email from '../formElements/Email';
+import Avatar from '../formElements/Avatar';
 import ImagePreview from '../ImagePreview';
-import Color from './createUser/Color';
-import Description from './createUser/Description';
+import Color from '../formElements/Color';
+import Description from '../formElements/Description';
 
 import { createUser } from '../../actions/userActions.ts';
 import { filePreviewHandler } from '../../utils/filePreviewHandler.ts';

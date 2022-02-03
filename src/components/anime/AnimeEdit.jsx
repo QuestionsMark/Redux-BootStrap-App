@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Button, Card, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { Form, Button } from 'react-bootstrap';
 
 import Title from '../formElements/Title';
 import Types from '../formElements/Types';
@@ -10,25 +10,30 @@ import ImagePreview from '../ImagePreview';
 import Color from '../formElements/Color';
 import Description from '../formElements/Description';
 
+import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
+import { editAnime } from '../../actions/animeActions.ts';
 import { filePreviewHandler } from '../../utils/filePreviewHandler.ts';
 
-import { addAnime } from '../../actions/animeActions.ts';
-import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
+const AnimeEdit = ({anime}) => {
 
-const AnimeForm = () => {
+    const { id, color: _color, description: _description, image: _image, rate: _rate, title: _title, types: _types } = anime;
 
     const dispatch = useDispatch();
 
     const { setOpen, setStatus, setResponse } = useResponsePopup();
 
     const [errors, setErrors] = useState([]);
-    const [title, setTitle] = useState('');
-    const [types, setTypes] = useState([]);
-    const [rate, setRate] = useState(5);
+    const [title, setTitle] = useState(_title);
+    const [types, setTypes] = useState(_types);
+    const [rate, setRate] = useState(_rate);
     const [image, setImage] = useState(null);
-    const [preview, setPreview] = useState(null);
-    const [color, setColor] = useState('#000000');
-    const [description, setDescription] = useState('');
+    const [preview, setPreview] = useState({
+        name: 'Aktualna grafika',
+        size: 0,
+        link: _image,
+    });
+    const [color, setColor] = useState(_color);
+    const [description, setDescription] = useState(_description);
     const handleDataChange = ({ target }) => {
         const dataName = target.name;
         switch (dataName) {
@@ -84,29 +89,16 @@ const AnimeForm = () => {
             validationErrors.push('Wybierz grafikę!');
         }
 
-        if (description.length < 50 || description.length > 10000) {
-            validationErrors.push('Opis powinien zawierać od 50 do 10000 znaków!');
-        }
-
         setErrors(validationErrors);
-    }, [image, title, types, description]);
+    }, [image, title, types]);
 
-    const reset = () => {
-        setTitle('');
-        setRate(5);
-        setImage(null);
-        setPreview(null);
-        setTypes([]);
-    };
-
-    const handleAddNewAnime = e => {
+    const handleEditAnime = e => {
         e.preventDefault();
-        reset();
-        dispatch(addAnime({ color, description, image: preview.link, rate, title, types }));
+        dispatch(editAnime({ id, color, description, image: preview.link, rate, title, types }));
         // Jeśli łączymy z bazą danych to trzeba sprawdzić czy status jest ok
         setOpen(true);
         setStatus(true);
-        setResponse('Dodano nowe anime!');
+        setResponse('Zaktualizowano dane o anime!');
     };
 
     const titleComponent = useMemo(() => <Title title={title} handler={handleDataChange}/>, [title]);
@@ -122,28 +114,26 @@ const AnimeForm = () => {
     }, [checkValidation]);
 
     return ( 
-        <div className="content">
-            <div className="container container--custom" style={{maxWidth: '600px'}}>
-                <Form validated onSubmit={handleAddNewAnime}>
-                    <h3 className="mb-3 title--center">Nowe Anime</h3>
-                    {titleComponent}
-                    {typesComponent}
-                    {rateComponent}
-                    {imageComponent}
-                    {previewComponent}
-                    {colorComponent}
-                    {descriptionComponent}
-                    <Button
-                    variant="warning"
-                    type="submit"
-                    disabled={errors.length > 0 ? true : false}
-                    >
-                        Dodaj
-                    </Button>
-                </Form>
-            </div>
-        </div>
+        <Card.Body>
+            <Card.Title>Edytuj Profil</Card.Title>
+            <Form validated onSubmit={handleEditAnime}>
+                {titleComponent}
+                {typesComponent}
+                {rateComponent}
+                {imageComponent}
+                {previewComponent}
+                {colorComponent}
+                {descriptionComponent}
+                <Button
+                variant="warning"
+                type="submit"
+                disabled={errors.length > 0 ? true : false}
+                >
+                    Aktualizuj
+                </Button>
+            </Form>
+        </Card.Body>
      );
 }
  
-export default AnimeForm;
+export default AnimeEdit;
