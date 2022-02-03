@@ -38,6 +38,10 @@ body {}
     flex-direction: column;
     min-height: 100vh;
     padding-top: 100px;
+
+    @media (max-height: 750px) {
+        padding-top: 60px;
+    }
 }
 
 .content {
@@ -97,6 +101,7 @@ div.container--custom {
     width: 100%;
     height: 100%;
     user-select: none;
+    flex-shrink: 0;
 
     &-carousel {
         width: 100vw;
@@ -105,6 +110,15 @@ div.container--custom {
 
     &-cover {
         object-fit: cover;
+    }
+}
+
+img.image {
+    &--profile {
+        @media (min-width: 992px) {
+            width: 200px;
+            height: 200px;
+        }
     }
 }
 
@@ -143,5 +157,16 @@ div.container--custom {
     &:hover {
         background-color: rgba(0, 0, 0, 0.5);
         color: #eee;
+    }
+}
+
+div.body {
+    &--flex {
+        padding: 1rem 0 0;
+        align-self: stretch;
+
+        @media (min-width: 992px) {
+            padding: 0 0 0 1rem;
+        }
     }
 }

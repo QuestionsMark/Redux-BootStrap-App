@@ -15,7 +15,7 @@ const SingleAnimePage = ({anime}) => {
                 <Card.Header>
                     <Nav variant="tabs" defaultActiveKey="#first">
                         <Nav.Item>
-                            <NavLink to={`/anime/${id}`} end className="nav-link">Profil</NavLink>
+                            <NavLink to={`/anime/${id}`} end className="nav-link">Informacje</NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             <NavLink to={`/anime/${id}/edit`} className="nav-link">Edytuj</NavLink>

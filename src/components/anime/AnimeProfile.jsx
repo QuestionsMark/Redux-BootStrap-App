@@ -12,10 +12,9 @@ const AnimeProfile = ({anime}) => {
 
     return ( 
         <Card.Body>
-            <Card.Title>Profil</Card.Title>
             <Card.Header className="card__header">
-                <Card.Img variant="top" src={image} style={{maxWidth: '150px'}}/>
-                <Card.Body style={{padding: '0 0 0 1rem'}}>
+                <Card.Img variant="top" src={image} className="image image--profile"/>
+                <Card.Body className="body--flex">
                     <Card.Title className="mb-3" style={{color: color}}>{title}</Card.Title>
                     <Card.Subtitle className="mb-2">{types.join(', ')}</Card.Subtitle>
                     <Card.Text style={{textIndent: '20px' , textAlign: 'justify'}}>{shortLorem}</Card.Text>

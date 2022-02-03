@@ -15,8 +15,8 @@ const UserProfile = ({user}) => {
         <Card.Body>
             <Card.Title>Profil</Card.Title>
             <Card.Header className="card__header">
-                <Card.Img variant="top" src={avatar} style={{maxWidth: '150px'}}/>
-                <Card.Body style={{padding: '0 0 0 1rem'}}>
+                <Card.Img variant="top" src={avatar} className="image, image--profile"/>
+                <Card.Body className="body--flex">
                     <Card.Title className="mb-3" style={{color: color}}>{username}</Card.Title>
                     <Card.Subtitle className="mb-2">{email}</Card.Subtitle>
                     <Card.Text style={{textIndent: '20px' , textAlign: 'justify'}}>{shortLorem}</Card.Text>
