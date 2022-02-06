@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 
 import { deleteAnime } from '../../actions/animeActions.ts';
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
-import { loremTexts } from '../../utils/loremContent';
+
+import { HOST_ADDRESS } from '../../config';
 
 const AnimeCard = ({anime}) => {
 
@@ -14,8 +15,6 @@ const AnimeCard = ({anime}) => {
     const dispatch = useDispatch();
 
     const { setOpen, setStatus, setResponse } = useResponsePopup();
-
-    const lorem = loremTexts[Math.floor(Math.random() * loremTexts.length)];
 
     const handleAnimeDelete = () => {
         dispatch(deleteAnime(id));
@@ -28,7 +27,9 @@ const AnimeCard = ({anime}) => {
     return ( 
         <li className="users__item">
             <Card style={{ width: '320px', border: 'none', borderRadius: 0, color }} className="card-hover">
-                <Card.Img variant="top" src={image} />
+                <div className="image-wrapper image-wrapper--card">
+                    <Card.Img variant="top" src={`${HOST_ADDRESS}/images/${image}`} className="image image--wrapped"/>
+                </div>
                 <Card.Body>
                     <Card.Title className="mb-3" style={{color: 'black'}}>{title}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">Ocena: {rate}</Card.Subtitle>

@@ -21,15 +21,6 @@
         }
     }
 
-    &__image-wrapper {
-        flex-shrink: 0;
-        width: 120px;
-        height: 120px;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-right: 10px;
-    }
-
     &__info {
         flex-grow: 1;
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { HOST_ADDRESS } from '../../config';
 
 const UserProfile = ({user}) => {
     
@@ -15,7 +16,9 @@ const UserProfile = ({user}) => {
         <Card.Body>
             <Card.Title>Profil</Card.Title>
             <Card.Header className="card__header">
-                <Card.Img variant="top" src={avatar} className="image, image--profile"/>
+                <div className="image-wrapper image-wrapper--profile">
+                    <Card.Img variant="top" src={`${HOST_ADDRESS}/images/${avatar}`} className="image image--profile"/>
+                </div>
                 <Card.Body className="body--flex">
                     <Card.Title className="mb-3" style={{color: color}}>{username}</Card.Title>
                     <Card.Subtitle className="mb-2">{email}</Card.Subtitle>

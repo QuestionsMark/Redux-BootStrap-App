@@ -4,6 +4,8 @@ export interface Anime {
     rate: number;
     image: string;
     types: string[];
+    description: string;
+    color: string;
 }
 
 export interface AnimeCreate {
@@ -11,4 +13,12 @@ export interface AnimeCreate {
     rate: number;
     image: string;
     types: string[];
+    description: string;
+    color: string;
+}
+
+export interface AnimeData {
+    anime: Anime[];
+    count: number;
+    page: number;
 }

@@ -1,4 +1,5 @@
-@import 'general.scss';
+@import 'variables';
+@import 'general';
 @import 'form';
 @import 'menu';
 @import 'carousel';
@@ -8,4 +9,6 @@
 @import 'card';
 @import 'header';
 @import 'text';
+@import 'page-switcher';
+@import 'search';
 @import "~bootstrap/scss/bootstrap";

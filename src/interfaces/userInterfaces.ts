@@ -14,3 +14,9 @@ export interface UserCreate {
     email: string;
     username: string;
 };
+
+export interface UserData {
+    users: User[];
+    count: number;
+    page: number;
+}

@@ -2,6 +2,8 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+
 const AddCard = ({collection}) => {
 
     const getButtonText = () => {
@@ -22,7 +24,7 @@ const AddCard = ({collection}) => {
             <Card className="card-add">
                 <Card.Body>
                     <div className="button-container button-container--center-center">
-                        <Link to={`/${collection}/add`} className="button button--add">+ Dodaj {getButtonText()}</Link>
+                        <Link to={`/${collection}/add`} className="button button--add"><AddRoundedIcon className="icon"/> Dodaj {getButtonText()}</Link>
                     </div>
                 </Card.Body>
             </Card>

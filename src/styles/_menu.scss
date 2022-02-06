@@ -14,9 +14,9 @@
 
     &__link {
         display: block;
-        height: 100px;
+        height: 60px;
         padding: 0 20px;
-        line-height: 100px;
+        line-height: 60px;
         text-decoration: none;
         color: #eee;
         font-size: 1.1rem;
@@ -32,11 +32,9 @@
             // animation: after-click 0.3s;
         }
 
-        @media (max-height: 750px) {
-            height: 60px;
-            padding: 0 20px;
-            line-height: 60px;
-            font-size: 1.1rem;
+        @media (min-height: 750px) {
+            height: 100px;
+            line-height: 100px;
         }
     }
 }

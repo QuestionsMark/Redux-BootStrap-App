@@ -7,16 +7,16 @@ import SingleAnimePage from './SingleAnimePage';
 const AnimePage = () => {
 
     const { animeId } = useParams();
-    const anime = useSelector(({ anime }) => anime);
+    const animeData = useSelector(({ anime }) => anime);
 
-    const [animeData, setAnimeData] = useState(null);
+    const [anime, setAnime] = useState(null);
 
-    const animePageComponent = animeData ? <SingleAnimePage anime={animeData}/> : null;
+    const animePageComponent = anime ? <SingleAnimePage anime={anime}/> : null;
 
     useEffect(() => {
-        if (!anime) return;
-        setAnimeData(anime.find(u => u.id === animeId));
-    }, [animeId, anime]);
+        if (!animeData) return;
+        setAnime(animeData.anime.find(u => u.id === animeId));
+    }, [animeId, animeData]);
 
     return ( 
         <div className="content">

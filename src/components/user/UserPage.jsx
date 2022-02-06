@@ -7,16 +7,16 @@ import SingleUserPage from './SingleUserPage';
 const UserPage = () => {
 
     const { userId } = useParams();
-    const users = useSelector(store => store.users);
+    const usersData = useSelector(({ users }) => users);
 
-    const [userData, setUserData] = useState(null);
+    const [user, setUser] = useState(null);
 
-    const userPageComponent = userData ? <SingleUserPage user={userData}/> : null;
+    const userPageComponent = user ? <SingleUserPage user={user}/> : null;
 
     useEffect(() => {
-        if (!users) return;
-        setUserData(users.find(u => u.id === userId));
-    }, [userId, users]);
+        if (!usersData) return;
+        setUser(usersData.users.find(u => u.id === userId));
+    }, [userId, usersData]);
 
     return ( 
         <div className="content">

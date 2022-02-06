@@ -14,6 +14,9 @@ import UserPage from './user/UserPage';
 import { Alert, Button, Modal } from 'react-bootstrap';
 import { useResponsePopup } from '../contexts/ResponsePopupProvider';
 import AnimePage from './anime/AnimePage';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAnime } from '../actions/animeActions.ts';
+import { setUsers } from '../actions/userActions.ts';
 
 function App() {
 
@@ -21,17 +24,25 @@ function App() {
 
     const html = useRef(document.querySelector('html'));
     const location = useLocation();
+    const { page: animePage } = useSelector(({anime}) => anime);
+    const { page: usersPage } = useSelector(({users}) => users);
+    const dispatch = useDispatch();
 
     const handleCloseResponsePopup = () => {
         setOpen(false);
     };
 
     useEffect(() => {
+        dispatch(setAnime());
+        dispatch(setUsers());
+    }, [dispatch]);
+
+    useEffect(() => {
         html.current.scroll({
             behavior: 'smooth',
             top: 0
         });
-    }, [location]);
+    }, [location, animePage, usersPage]);
 
     return (
         <>

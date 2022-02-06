@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { deleteUser } from '../../actions/userActions.ts';
+import { HOST_ADDRESS } from '../../config';
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
 
 const UserCard = ({user}) => {
@@ -25,7 +26,9 @@ const UserCard = ({user}) => {
     return ( 
         <li className="users__item">
             <Card style={{ width: '320px', border: 'none', borderRadius: 0, color }} className="card-hover">
-                <Card.Img variant="top" src={avatar} />
+                <div className="image-wrapper image-wrapper--card">
+                    <Card.Img variant="top" src={`${HOST_ADDRESS}/images/${avatar}`} className="image  image--wrapped"/>
+                </div>
                 <Card.Body>
                     <Card.Title className="mb-3">{username}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">Email: {email}</Card.Subtitle>
