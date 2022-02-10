@@ -74,20 +74,21 @@ export const animeReducer = (state = defaultAnimeData, action: Action): AnimeDat
 
         case ADD:
             return {
+                ...state,
                 anime: [...state.anime, action.payload],
                 count: state.count + 1,
-                page: state.page
             };
 
         case DELETE:
             return {
+                ...state,
                 anime: state.anime.filter(anime => anime.id !== action.payload.id),
                 count: state.count - 1,
-                page: state.page,
             };
 
         case EDIT:
             return {
+                ...state,
                 anime: state.anime.map(anime => {
                     if (anime.id === action.payload.id) {
                         if (action.payload.image) return { ...action.payload };
@@ -95,8 +96,6 @@ export const animeReducer = (state = defaultAnimeData, action: Action): AnimeDat
                     }
                     return anime;
                 }),
-                count: state.count,
-                page: state.page,
             }
 
         case UPDATE_PAGE:

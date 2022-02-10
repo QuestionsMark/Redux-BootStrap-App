@@ -85,12 +85,19 @@ const AnimeEdit = ({anime}) => {
             validationErrors.push('Anime musi zawierać conajmniej jeden gatunek!');
         }
 
-        if (!image) {
-            validationErrors.push('Wybierz grafikę!');
+        if (
+            title === _title
+            && JSON.stringify(types) === JSON.stringify(_types)
+            && rate === _rate
+            && !image
+            && color === _color
+            && description === _description
+        ) {
+            validationErrors.push('Nie zauważono żadnych zmian!');
         }
 
         setErrors(validationErrors);
-    }, [image, title, types]);
+    }, [_color, _description, _rate, _title, _types, color, description, image, rate, title, types]);
 
     const handleEditAnime = e => {
         e.preventDefault();
@@ -103,11 +110,12 @@ const AnimeEdit = ({anime}) => {
 
     const titleComponent = useMemo(() => <Title title={title} handler={handleDataChange}/>, [title]);
     const typesComponent = useMemo(() => <Types types={types} handler={handleDataChange}/>, [types]);
-    const rateComponent = useMemo(() => <Rate rate={rate} handler={handleDataChange}/>, [rate]);
-    const imageComponent = useMemo(() => <Image handler={handleDataChange}/>, []);
+    const rateComponent = useMemo(() => <Rate isEditForm rate={rate} handler={handleDataChange}/>, [rate]);
+    const imageComponent = useMemo(() => <Image isEditForm type={'image'} handler={handleDataChange}/>, []);
     const previewComponent = useMemo(() => preview ? <ul className="image-preview__list"><ImagePreview preview={preview}/></ul> : null, [preview]);
     const colorComponent = useMemo(() => <Color color={color} handler={handleDataChange}/>, [color]);
     const descriptionComponent = useMemo(() => <Description description={description} handler={handleDataChange}/>, [description]);
+    const errorsList = useMemo(() => errors.map((e, i) => <Form.Text key={i} className="validation__text">{e}</Form.Text>), [errors.length]);
 
     useEffect(() => {
         checkValidation();
@@ -131,6 +139,9 @@ const AnimeEdit = ({anime}) => {
                 >
                     Aktualizuj
                 </Button>
+                <div className="validation">
+                    {errorsList}
+                </div>
             </Form>
         </Card.Body>
      );

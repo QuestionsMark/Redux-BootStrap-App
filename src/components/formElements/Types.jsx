@@ -1,24 +1,38 @@
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-const TYPES = ['Dramat', 'Romans', 'Komedia', 'Wojskowe', 'Fantasy', 'Psychologiczne', 'Tajemnica'];
+import { DefaultArray } from '../../utils/defaultValues';
+import { callApi } from '../../utils/callApi';
 
 const Types = ({ types, handler }) => {
 
-    const checkBoxesList = () => {
-        return TYPES.map((type, index) => {
-            if (types.includes(type)) return <Form.Check key={index} type="checkbox" inline checked label={type} value={type} name="types" onChange={handler}/>;
-            return <Form.Check key={index} type="checkbox" inline label={type} value={type} name="types" onChange={handler}/>;
-        });
+    const componentRef = useRef();
+
+    const [formTypes, setFormTypes] = useState(new DefaultArray());
+    const getTypes = async () => {
+        const types = await callApi('types', []);
+        if (!componentRef.current) return;
+        setFormTypes(types);
     };
 
+    const checkBoxesList = useMemo(() => {
+        return formTypes.map(({ id, name }) => {
+            if (types.includes(name)) return <Form.Check key={id} type="checkbox" inline checked label={name} value={name} name="types" onChange={handler}/>;
+            return <Form.Check key={id} type="checkbox" inline label={name} value={name} name="types" onChange={handler}/>;
+        });
+    }, [formTypes, handler, types]);
+
+    useEffect(() => {
+        getTypes();
+    }, []);
+
     return ( 
-        <Form.Group className="mb-3" controlId="types">
+        <Form.Group className="mb-3" controlId="types" ref={componentRef}>
             <Form.Label>
                 Gatunek
             </Form.Label>
             <Form.Group>
-                {checkBoxesList()}
+                {checkBoxesList}
             </Form.Group>
             <Form.Text>
                 Wybrano: {types.join(', ')}

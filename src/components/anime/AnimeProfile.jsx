@@ -16,7 +16,7 @@ const AnimeProfile = ({anime}) => {
         <Card.Body>
             <Card.Header className="card__header">
                 <div className="image-wrapper image-wrapper--profile">
-                    <Card.Img variant="top" src={`${HOST_ADDRESS}/images/${image}`} className="image image--wrapped"/>
+                    <Card.Img variant="top" src={image} className="image image--wrapped"/>
                 </div>
                 <Card.Body className="body--flex">
                     <Card.Title className="mb-3" style={{color: color}}>{title}</Card.Title>

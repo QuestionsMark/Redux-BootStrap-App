@@ -6,8 +6,6 @@ import { useDispatch } from 'react-redux';
 import { deleteAnime } from '../../actions/animeActions.ts';
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
 
-import { HOST_ADDRESS } from '../../config';
-
 const AnimeCard = ({anime}) => {
 
     const { id, color, description, image, title, rate, types } = anime;
@@ -28,7 +26,7 @@ const AnimeCard = ({anime}) => {
         <li className="users__item">
             <Card style={{ width: '320px', border: 'none', borderRadius: 0, color }} className="card-hover">
                 <div className="image-wrapper image-wrapper--card">
-                    <Card.Img variant="top" src={`${HOST_ADDRESS}/images/${image}`} className="image image--wrapped"/>
+                    <Card.Img variant="top" src={image} className="image image--wrapped"/>
                 </div>
                 <Card.Body>
                     <Card.Title className="mb-3" style={{color: 'black'}}>{title}</Card.Title>

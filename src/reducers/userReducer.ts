@@ -16,20 +16,21 @@ export const userReducer = (state = defaultUserData, action: Action): UserData =
 
         case ADD:
             return {
+                ...state,
                 users: [...state.users, action.payload],
                 count: state.count + 1,
-                page: state.page,
             };
 
         case DELETE:
             return {
+                ...state,
                 users: state.users.filter(user => user.id !== action.payload.id),
                 count: state.count - 1,
-                page: state.page,
             };
 
         case EDIT:
             return {
+                ...state,
                 users: state.users.map(user => {
                     if (user.id === action.payload.id) {
                         if (action.payload.avatar) return { ...action.payload };
@@ -37,8 +38,6 @@ export const userReducer = (state = defaultUserData, action: Action): UserData =
                     }
                     return user;
                 }),
-                count: state.count,
-                page: state.page,
             };
 
         case UPDATE_PAGE:

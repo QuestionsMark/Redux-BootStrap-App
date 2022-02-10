@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 
 import Username from '../formElements/Username';
 import Email from '../formElements/Email';
-import Avatar from '../formElements/Avatar';
 import ImagePreview from '../ImagePreview';
 import Color from '../formElements/Color';
 import Description from '../formElements/Description';
@@ -12,6 +11,7 @@ import Description from '../formElements/Description';
 import { createUser } from '../../actions/userActions.ts';
 import { filePreviewHandler } from '../../utils/filePreviewHandler.ts';
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
+import Image from '../formElements/Image';
 
 const UserForm = () => {
 
@@ -104,12 +104,12 @@ const UserForm = () => {
     }, [avatar, email, username, description]);
 
     const previewComponent = useMemo(() => preview ? <ul className="image-preview__list"><ImagePreview preview={preview}/></ul> : null, [preview]);
-
     const usernameComponent = useMemo(() => <Username username={username} handler={handleDataChange}/>, [username]);
     const emailComponent = useMemo(() => <Email email={email} handler={handleDataChange}/>, [email]);
-    const avatarComponent = useMemo(() => <Avatar avatar={avatar} handler={handleDataChange}/>, [avatar]);
+    const avatarComponent = useMemo(() => <Image type={'avatar'} handler={handleDataChange}/>, []);
     const colorComponent = useMemo(() => <Color color={color} handler={handleDataChange}/>, [color]);
     const descriptionComponent = useMemo(() => <Description description={description} handler={handleDataChange}/>, [description]);
+    const errorsList = useMemo(() => errors.map((e, i) => <Form.Text key={i} className="validation__text">{e}</Form.Text>), [errors.length]);
 
     useEffect(() => {
         checkValidation();
@@ -126,9 +126,16 @@ const UserForm = () => {
                     {previewComponent}
                     {colorComponent}
                     {descriptionComponent}
-                    <Button variant="warning" type="submit" disabled={errors.length > 0 ? true : false}>
+                    <Button
+                    variant="warning"
+                    type="submit"
+                    disabled={errors.length > 0 ? true : false}
+                    >
                         Dodaj
                     </Button>
+                    <div className="validation">
+                        {errorsList}
+                    </div>
                 </Form>
             </div>
         </div>

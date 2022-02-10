@@ -112,10 +112,11 @@ const AnimeForm = () => {
     const titleComponent = useMemo(() => <Title title={title} handler={handleDataChange}/>, [title]);
     const typesComponent = useMemo(() => <Types types={types} handler={handleDataChange}/>, [types]);
     const rateComponent = useMemo(() => <Rate rate={rate} handler={handleDataChange}/>, [rate]);
-    const imageComponent = useMemo(() => <Image handler={handleDataChange}/>, []);
+    const imageComponent = useMemo(() => <Image type={'image'} handler={handleDataChange}/>, []);
     const previewComponent = useMemo(() => preview ? <ul className="image-preview__list"><ImagePreview preview={preview}/></ul> : null, [preview]);
     const colorComponent = useMemo(() => <Color color={color} handler={handleDataChange}/>, [color]);
     const descriptionComponent = useMemo(() => <Description description={description} handler={handleDataChange}/>, [description]);
+    const errorsList = useMemo(() => errors.map((e, i) => <Form.Text key={i} className="validation__text">{e}</Form.Text>), [errors.length]);
 
     useEffect(() => {
         checkValidation();
@@ -140,6 +141,9 @@ const AnimeForm = () => {
                     >
                         Dodaj
                     </Button>
+                    <div className="validation">
+                        {errorsList}
+                    </div>
                 </Form>
             </div>
         </div>

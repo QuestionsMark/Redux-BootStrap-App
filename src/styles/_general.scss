@@ -214,3 +214,12 @@ div.body {
         }
     }
 }
+
+.validation {
+    margin-top: 1rem;
+
+    &__text {
+        color: red !important;
+        display: block;
+    }
+}

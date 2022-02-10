@@ -7,6 +7,11 @@ import ImagePreview from '../ImagePreview';
 import { editUser } from '../../actions/userActions.ts';
 import { filePreviewHandler } from '../../utils/filePreviewHandler.ts';
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
+import Username from '../formElements/Username';
+import Email from '../formElements/Email';
+import Color from '../formElements/Color';
+import Description from '../formElements/Description';
+import Image from '../formElements/Image';
 
 const UserProfile = ({user}) => {
 
@@ -95,6 +100,14 @@ const UserProfile = ({user}) => {
     }, [avatar, email, username, description, color, _email, _description, _color, _username]);
 
     const previewComponent = useMemo(() => preview ? <ul className="image-preview__list"><ImagePreview preview={preview}/></ul> : null, [preview]);
+    const usernameComponent = useMemo(() => <Username username={username} handler={handleDataChange}/>, [username]);
+    const emailComponent = useMemo(() => <Email email={email} handler={handleDataChange}/>, [email]);
+    const avatarComponent = useMemo(() => <Image isEditForm type={'avatar'} handler={handleDataChange}/>, []);
+    const colorComponent = useMemo(() => <Color color={color} handler={handleDataChange}/>, [color]);
+    const descriptionComponent = useMemo(() => <Description description={description} handler={handleDataChange}/>, [description]);
+    const errorsList = useMemo(() => {
+        return errors.map((e, i) => <Form.Text key={i} className="validation__text">{e}</Form.Text>);
+    }, [errors.length]);
 
     useEffect(() => {
         checkValidation();
@@ -104,54 +117,23 @@ const UserProfile = ({user}) => {
         <Card.Body>
             <Card.Title>Edytuj Profil</Card.Title>
             <Form validated onSubmit={handleEditUser}>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Nazwa Użytkownika</Form.Label>
-                        <Form.Control type="text" name="username" placeholder="Username" required minLength="2" maxLength="25" value={username} onChange={handleDataChange}/>
-                        <Form.Control.Feedback type='valid'>
-                            Wygląda dobrze!
-                        </Form.Control.Feedback>
-                        <Form.Control.Feedback type='invalid'>
-                            Nazwa użytkownika powinna zawierać od 2 do 25 znaków!
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" name="email" placeholder="Enter email" required value={email} onChange={handleDataChange}/>
-                        <Form.Control.Feedback type="valid">
-                            Wygląda dobrze!
-                        </Form.Control.Feedback>
-                        <Form.Control.Feedback type="invalid">
-                            Adres e-mail jest wymagany!
-                        </Form.Control.Feedback>
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                        </Form.Text>
-                    </Form.Group>
-                    <Form.Group controlId="formFile" className="mb-3">
-                        <Form.Label>Zdjęcie Profilowe</Form.Label>
-                        <Form.Control type="file" name="avatar" onChange={handleDataChange}/>
-                    </Form.Group>
-                    {previewComponent}
-                    <Form.Group className="mb-3">
-                        <Form.Label htmlFor="exampleColorInput">Color picker</Form.Label>
-                        <Form.Control
-                        type="color"
-                        name="color"
-                        id="exampleColorInput"
-                        value={color}
-                        onChange={handleDataChange}
-                        title="Choose your color"
-                        style={{width: '70px'}}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Opis</Form.Label>
-                        <Form.Control as="textarea" name="description" rows={5} value={description} onChange={handleDataChange} required minLength={50} maxLength={10000}/>
-                    </Form.Group>
-                    <Button variant="warning" type="submit" disabled={errors.length > 0 ? true : false}>
-                        Aktualizuj
-                    </Button>
-                </Form>
+                {usernameComponent}
+                {emailComponent}
+                {avatarComponent}
+                {previewComponent}
+                {colorComponent}
+                {descriptionComponent}
+                <Button
+                variant="warning"
+                type="submit"
+                disabled={errors.length > 0 ? true : false}
+                >
+                    Dodaj
+                </Button>
+                <div className="validation">
+                    {errorsList}
+                </div>
+            </Form>
         </Card.Body>
      );
 }

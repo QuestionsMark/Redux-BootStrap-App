@@ -1,5 +1,4 @@
 import React from 'react';
-import { HOST_ADDRESS } from '../config';
 
 const ImagePreview = ({preview}) => {
 
@@ -8,7 +7,7 @@ const ImagePreview = ({preview}) => {
     return ( 
         <li className="image-preview__item image-preview__item-column">
             <div className="image-wrapper image-wrapper--preview">
-                <img src={`${HOST_ADDRESS}/images/${link}`} alt="" className="image image--wrapped" />
+                <img src={link} alt="" className="image image--wrapped" />
             </div>
             <div className="image-preview__info">
                 <p className="image-preview__info-item"><span className="bold">name:</span> {name}</p>
