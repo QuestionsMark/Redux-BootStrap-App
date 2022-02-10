@@ -8,7 +8,7 @@ import ImagePreview from '../ImagePreview';
 import Color from '../formElements/Color';
 import Description from '../formElements/Description';
 
-import { createUser } from '../../actions/userActions.ts';
+import { addUser } from '../../redux/slices/users';
 import { filePreviewHandler } from '../../utils/filePreviewHandler.ts';
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
 import Image from '../formElements/Image';
@@ -74,7 +74,7 @@ const UserForm = () => {
     const handleAddNewUser = e => {
         e.preventDefault();
         reset();
-        dispatch(createUser({ avatar: preview.link, color, description, email, username }));
+        dispatch(addUser({ avatar: preview.link, color, description, email, username }));
         // Jeśli łączymy z bazą danych to trzeba sprawdzić czy status jest ok
         setOpen(true);
         setStatus(true);

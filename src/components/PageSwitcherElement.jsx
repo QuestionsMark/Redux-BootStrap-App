@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { useDispatch } from 'react-redux';
-import { updateAnimePage } from '../actions/animeActions.ts';
-import { updateUsersPage } from '../actions/userActions.ts';
+import { changeAnimePage } from '../redux/slices/anime';
+import { changeUsersPage } from '../redux/slices/users';
 
 const PageSwitcherElement = ({collection, children, page}) => {
 
@@ -11,11 +11,11 @@ const PageSwitcherElement = ({collection, children, page}) => {
     const handlePageChange = () => {
         switch (collection) {
             case 'anime':
-                dispatch(updateAnimePage(page));
+                dispatch(changeAnimePage(page));
                 break;
                 
             case 'users':
-                dispatch(updateUsersPage(page));
+                dispatch(changeUsersPage(page));
                 break;
         
             default:

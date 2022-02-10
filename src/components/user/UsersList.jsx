@@ -6,7 +6,7 @@ import PageSwitcher from '../PageSwitcher';
 
 import UserCard from './UserCard';
 
-import { updateUsersPage } from '../../actions/userActions.ts';
+import { changeUsersPage } from '../../redux/slices/users';
 
 const UsersList = () => {
 
@@ -22,7 +22,7 @@ const UsersList = () => {
     const pageSwitcherComponent = useMemo(() => <PageSwitcher collection='users' pageState={pageState}/>, [pageState]);
 
     useEffect(() => {
-        dispatch(updateUsersPage(1));
+        dispatch(changeUsersPage(1));
     }, [dispatch]);
 
     return ( 

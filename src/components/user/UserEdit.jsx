@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, Card, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { Button, Card, Form } from 'react-bootstrap';
 
 import ImagePreview from '../ImagePreview';
-
-import { editUser } from '../../actions/userActions.ts';
-import { filePreviewHandler } from '../../utils/filePreviewHandler.ts';
-import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
 import Username from '../formElements/Username';
 import Email from '../formElements/Email';
 import Color from '../formElements/Color';
 import Description from '../formElements/Description';
 import Image from '../formElements/Image';
+
+import { editUser } from '../../redux/slices/users';
+import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
+import { filePreviewHandler } from '../../utils/filePreviewHandler.ts';
 
 const UserProfile = ({user}) => {
 
@@ -128,7 +128,7 @@ const UserProfile = ({user}) => {
                 type="submit"
                 disabled={errors.length > 0 ? true : false}
                 >
-                    Dodaj
+                    Zaktualizuj
                 </Button>
                 <div className="validation">
                     {errorsList}

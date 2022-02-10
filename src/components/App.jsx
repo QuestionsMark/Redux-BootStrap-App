@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alert, Button, Modal } from 'react-bootstrap';
 
 import Background from './Background';
 import Header from './header/Header';
@@ -7,16 +9,15 @@ import Footer from './Footer';
 import Home from './Home';
 import UsersList from './user/UsersList';
 import UserForm from './user/UserForm';
-
 import AnimeList from './anime/AnimeList';
 import AnimeForm from './anime/AnimeForm';
 import UserPage from './user/UserPage';
-import { Alert, Button, Modal } from 'react-bootstrap';
-import { useResponsePopup } from '../contexts/ResponsePopupProvider';
 import AnimePage from './anime/AnimePage';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAnime } from '../actions/animeActions.ts';
-import { setUsers } from '../actions/userActions.ts';
+
+import { useResponsePopup } from '../contexts/ResponsePopupProvider';
+import { setAnime } from '../redux/slices/anime';
+import { setUsers } from '../redux/slices/users';
+import { callApi } from '../utils/callApi';
 
 function App() {
 
@@ -32,9 +33,15 @@ function App() {
         setOpen(false);
     };
 
+    const setApp = async () => {
+        const anime = await callApi('anime/card-info', []);
+        const users = await callApi('users/card-info', []);
+        dispatch(setAnime(anime));
+        dispatch(setUsers(users));
+    };
+
     useEffect(() => {
-        dispatch(setAnime());
-        dispatch(setUsers());
+        setApp();
     }, [dispatch]);
 
     useEffect(() => {

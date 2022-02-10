@@ -6,7 +6,7 @@ import PageSwitcher from '../PageSwitcher';
 import AnimeCard from './AnimeCard';
 
 import { usePagination } from '../../hooks/usePagination';
-import { updateAnimePage } from '../../actions/animeActions.ts';
+import { changeAnimePage } from '../../redux/slices/anime';
 
 const AnimeList = () => {
 
@@ -22,7 +22,7 @@ const AnimeList = () => {
     const pageSwitcherComponent = useMemo(() => <PageSwitcher collection='anime' pageState={pageState}/>, [pageState]);
 
     useEffect(() => {
-        dispatch(updateAnimePage(1));
+        dispatch(changeAnimePage(1));
     }, [dispatch]);
 
     return ( 

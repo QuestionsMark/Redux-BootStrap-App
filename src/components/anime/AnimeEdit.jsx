@@ -11,7 +11,7 @@ import Color from '../formElements/Color';
 import Description from '../formElements/Description';
 
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
-import { editAnime } from '../../actions/animeActions.ts';
+import { editAnime } from '../../redux/slices/anime';
 import { filePreviewHandler } from '../../utils/filePreviewHandler.ts';
 
 const AnimeEdit = ({anime}) => {

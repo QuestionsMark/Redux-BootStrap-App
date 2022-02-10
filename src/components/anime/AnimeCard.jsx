@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
-import { deleteAnime } from '../../actions/animeActions.ts';
+import { deleteAnime } from '../../redux/slices/anime';
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
 
 const AnimeCard = ({anime}) => {

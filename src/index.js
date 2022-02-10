@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import App from './components/App';
 
-import { store } from './store/store.ts';
+import { store } from './redux/indexToolkit';
 import { ResponsePopupProvider } from './contexts/ResponsePopupProvider';
 
 import './styles/main.scss';

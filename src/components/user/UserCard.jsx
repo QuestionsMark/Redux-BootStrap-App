@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Card } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Button, Card } from 'react-bootstrap';
 
-import { deleteUser } from '../../actions/userActions.ts';
+import { deleteUser } from '../../redux/slices/users';
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
 
 const UserCard = ({user}) => {

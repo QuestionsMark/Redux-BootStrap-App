@@ -10,10 +10,9 @@ import ImagePreview from '../ImagePreview';
 import Color from '../formElements/Color';
 import Description from '../formElements/Description';
 
-import { filePreviewHandler } from '../../utils/filePreviewHandler.ts';
-
-import { addAnime } from '../../actions/animeActions.ts';
+import { addAnime } from '../../redux/slices/anime';
 import { useResponsePopup } from '../../contexts/ResponsePopupProvider';
+import { filePreviewHandler } from '../../utils/filePreviewHandler.ts';
 
 const AnimeForm = () => {
 
