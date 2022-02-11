@@ -6,7 +6,7 @@ import img2 from '../media/img/img2.webp';
 import img3 from '../media/img/img3.webp';
 
 const Background = () => {
-
+    
     const [index, setIndex] = useState(0);
 
     const handleSelect = (selectedIndex, e) => {

@@ -1,11 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
+import { callApi } from '../../utils/callApi';
 
 const defaultState = {
     anime: [],
     page: 1,
     count: 0,
+    isPending: false,
+    requestId: null,
 }
+
+export const fetchAnime = createAsyncThunk('anime/fetchAnime', async (args, thunkAPI) => {
+    try {
+        const { anime } = thunkAPI.getState();
+        if (anime.isPending && anime.requestId !== thunkAPI.requestId) return;
+        return callApi('anime/card-info', []);
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e.message);
+    }
+})
 
 const slice = createSlice({
     name: 'anime',
@@ -29,11 +42,27 @@ const slice = createSlice({
                 }
                 return user;
             })
-        },
-        setAnime: (state, { payload }) => {
-            state.anime = payload;
-            state.count = payload.length;
-        },
+        }
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(fetchAnime.pending, (state, action) => {
+                if (state.isPending) return;
+                state.isPending = true;
+                state.requestId = action.meta.requestId;
+            })
+            .addCase(fetchAnime.fulfilled, (state, { payload }) => {
+                if (!payload) return;
+                state.anime.push(...payload);
+                state.count = payload.length;
+                state.isPending = false;
+                state.requestId = null;
+            })
+            .addCase(fetchAnime.rejected, (state, { error }) => {
+                console.warn('Błąd!!! ', error.message);
+                state.isPending = false;
+                state.requestId = null;
+            })
     }
 });
 

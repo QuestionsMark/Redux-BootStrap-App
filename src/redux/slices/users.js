@@ -1,11 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
+import { callApi } from '../../utils/callApi';
 
 const defaultState = {
     users: [],
     page: 1,
     count: 0,
+    isPending: false,
+    requestId: null,
 }
+
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async (args, thunkAPI) => {
+    try {
+        const { users } = thunkAPI.getState();
+        if (users.isPending && users.requestId !== thunkAPI.requestId) return;
+        return callApi('users/card-info', []);
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e.message);
+    }
+})
 
 const slice = createSlice({
     name: 'users',
@@ -30,10 +43,26 @@ const slice = createSlice({
                 return user;
             })
         },
-        setUsers: (state, { payload }) => {
-            state.users = payload;
-            state.count = payload.length;
-        },
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(fetchUsers.pending, (state, action) => {
+                if (state.isPending) return;
+                state.isPending = true;
+                state.requestId = action.meta.requestId;
+            })
+            .addCase(fetchUsers.fulfilled, (state, { payload }) => {
+                if (!payload) return;
+                state.users.push(...payload);
+                state.count = payload.length;
+                state.isPending = false;
+                state.requestId = null;
+            })
+            .addCase(fetchUsers.rejected, (state, { error }) => {
+                console.warn('Błąd!!! ', error.message);
+                state.isPending = false;
+                state.requestId = null;
+            })
     }
 });
 
